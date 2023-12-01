@@ -109,7 +109,6 @@ func main() {
 		}
 
 		finalNumber += int(calculatedNumber)
-		break
 	}
 
 	checkErr(inputScanner.Err())
