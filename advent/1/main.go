@@ -65,7 +65,7 @@ func getLastNumber(inputString string) int {
 func main() {
 	var finalNumber int = 0
 
-	filePath, err := filepath.Abs("./advent/2/input.txt")
+	filePath, err := filepath.Abs("./advent/1/input.txt")
 	checkErr(err)
 
 	inputFile, err := os.Open(filePath)
