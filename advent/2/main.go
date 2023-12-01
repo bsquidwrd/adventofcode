@@ -100,8 +100,6 @@ func main() {
 		firstNumber := getFirstNumber(lineContent)
 		lastNumber := getLastNumber(lineContent)
 
-		fmt.Println(lineContent, firstNumber, lastNumber)
-
 		concatNumbers := fmt.Sprintf("%v%v", firstNumber, lastNumber)
 		calculatedNumber, err := strconv.ParseInt(concatNumbers, 10, 0)
 		if err != nil {
