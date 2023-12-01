@@ -7,5 +7,6 @@ I'm still super new to Go, so please don't think anything I do is best practice,
 
 Run each advent like the following
 ```shell
-go run advent/1
+cd ./src/day01
+go run .
 ```
