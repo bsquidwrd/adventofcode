@@ -37,30 +37,28 @@ var validNumbers = map[string]int{
 }
 
 func getFirstNumber(inputString string) int {
-	previousIndex := 0
+	previousIndex := -1
 	foundNumber := 0
 	for key, value := range validNumbers {
 		currentIndex := strings.Index(inputString, key)
-		if currentIndex > -1 && currentIndex <= previousIndex {
+		if currentIndex != -1 && (currentIndex <= previousIndex || previousIndex == -1) {
 			previousIndex = currentIndex
 			foundNumber = value
 		}
 	}
-
 	return foundNumber
 }
 
 func getLastNumber(inputString string) int {
-	previousIndex := 0
+	previousIndex := -1
 	foundNumber := 0
 	for key, value := range validNumbers {
 		currentIndex := strings.LastIndex(inputString, key)
-		if currentIndex > -1 && currentIndex >= previousIndex {
+		if currentIndex != -1 && (currentIndex >= previousIndex || previousIndex == -1) {
 			previousIndex = currentIndex
 			foundNumber = value
 		}
 	}
-
 	return foundNumber
 }
 
@@ -80,8 +78,6 @@ func main() {
 		lineContent := inputScanner.Text()
 		firstNumber := getFirstNumber(lineContent)
 		lastNumber := getLastNumber(lineContent)
-
-		fmt.Println(lineContent, firstNumber, lastNumber)
 
 		concatNumbers := fmt.Sprintf("%v%v", firstNumber, lastNumber)
 		calculatedNumber, err := strconv.ParseInt(concatNumbers, 10, 0)
