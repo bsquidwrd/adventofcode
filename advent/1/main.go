@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 )
 
 func checkErr(err error) {
@@ -14,27 +15,57 @@ func checkErr(err error) {
 	}
 }
 
-func reverseString(s string) string {
-	var reversedString string = ""
-	for _, c := range s {
-		reversedString = string(c) + reversedString
-	}
-	return reversedString
+var validNumbers = map[string]int{
+	"1":     1,
+	"2":     2,
+	"3":     3,
+	"4":     4,
+	"5":     5,
+	"6":     6,
+	"7":     7,
+	"8":     8,
+	"9":     9,
+	"one":   1,
+	"two":   2,
+	"three": 3,
+	"four":  4,
+	"five":  5,
+	"six":   6,
+	"seven": 7,
+	"eight": 8,
+	"nine":  9,
 }
 
-func getFirstNumber(s string) int {
-	for _, c := range s {
-		if n, err := strconv.Atoi(string(c)); err == nil {
-			return n
+func getFirstNumber(inputString string) int {
+	previousIndex := -1
+	foundNumber := 0
+	for key, value := range validNumbers {
+		currentIndex := strings.Index(inputString, key)
+		if currentIndex != -1 && (currentIndex <= previousIndex || previousIndex == -1) {
+			previousIndex = currentIndex
+			foundNumber = value
 		}
 	}
-	return 0
+	return foundNumber
+}
+
+func getLastNumber(inputString string) int {
+	previousIndex := -1
+	foundNumber := 0
+	for key, value := range validNumbers {
+		currentIndex := strings.LastIndex(inputString, key)
+		if currentIndex != -1 && (currentIndex >= previousIndex || previousIndex == -1) {
+			previousIndex = currentIndex
+			foundNumber = value
+		}
+	}
+	return foundNumber
 }
 
 func main() {
 	var finalNumber int = 0
 
-	filePath, err := filepath.Abs("./advent/1/input.txt")
+	filePath, err := filepath.Abs("./advent/2/input.txt")
 	checkErr(err)
 
 	inputFile, err := os.Open(filePath)
@@ -45,9 +76,8 @@ func main() {
 
 	for inputScanner.Scan() {
 		lineContent := inputScanner.Text()
-		lineBackwards := reverseString(lineContent)
 		firstNumber := getFirstNumber(lineContent)
-		lastNumber := getFirstNumber(lineBackwards)
+		lastNumber := getLastNumber(lineContent)
 
 		concatNumbers := fmt.Sprintf("%v%v", firstNumber, lastNumber)
 		calculatedNumber, err := strconv.ParseInt(concatNumbers, 10, 0)
