@@ -1,4 +1,4 @@
-# adventofcode-2023
+# adventofcode
 https://adventofcode.com/2023/
 
 This is my first attempt at participating in the Advent of Code!
