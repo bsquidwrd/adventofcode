@@ -15,27 +15,28 @@ func checkErr(err error) {
 	}
 }
 
+var validNumbers = map[string]int{
+	"1":     1,
+	"2":     2,
+	"3":     3,
+	"4":     4,
+	"5":     5,
+	"6":     6,
+	"7":     7,
+	"8":     8,
+	"9":     9,
+	"one":   1,
+	"two":   2,
+	"three": 3,
+	"four":  4,
+	"five":  5,
+	"six":   6,
+	"seven": 7,
+	"eight": 8,
+	"nine":  9,
+}
+
 func getFirstNumber(inputString string) int {
-	validNumbers := map[string]int{
-		"1":     1,
-		"2":     2,
-		"3":     3,
-		"4":     4,
-		"5":     5,
-		"6":     6,
-		"7":     7,
-		"8":     8,
-		"9":     9,
-		"one":   1,
-		"two":   2,
-		"three": 3,
-		"four":  4,
-		"five":  5,
-		"six":   6,
-		"seven": 7,
-		"eight": 8,
-		"nine":  9,
-	}
 	previousIndex := 0
 	foundNumber := 0
 	for key, value := range validNumbers {
@@ -50,26 +51,6 @@ func getFirstNumber(inputString string) int {
 }
 
 func getLastNumber(inputString string) int {
-	validNumbers := map[string]int{
-		"1":     1,
-		"2":     2,
-		"3":     3,
-		"4":     4,
-		"5":     5,
-		"6":     6,
-		"7":     7,
-		"8":     8,
-		"9":     9,
-		"one":   1,
-		"two":   2,
-		"three": 3,
-		"four":  4,
-		"five":  5,
-		"six":   6,
-		"seven": 7,
-		"eight": 8,
-		"nine":  9,
-	}
 	previousIndex := 0
 	foundNumber := 0
 	for key, value := range validNumbers {
@@ -99,6 +80,8 @@ func main() {
 		lineContent := inputScanner.Text()
 		firstNumber := getFirstNumber(lineContent)
 		lastNumber := getLastNumber(lineContent)
+
+		fmt.Println(lineContent, firstNumber, lastNumber)
 
 		concatNumbers := fmt.Sprintf("%v%v", firstNumber, lastNumber)
 		calculatedNumber, err := strconv.ParseInt(concatNumbers, 10, 0)
