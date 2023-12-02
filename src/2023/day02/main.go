@@ -47,7 +47,7 @@ type Game struct {
 	Draws  []Drawing
 }
 
-func isGameViable(game Game, totalRed int, totalGreen int, totalBlue int) bool {
+func (game Game) isGameViable(totalRed int, totalGreen int, totalBlue int) bool {
 	for _, draw := range game.Draws {
 		if draw.red == 0 && draw.blue == 0 && draw.green == 0 {
 			return false
@@ -71,7 +71,7 @@ func parseColorCount(s string, color string) int {
 	return 0
 }
 
-func getMinumumViableDrawing(game Game) Drawing {
+func (game Game) getMinumumViableDrawing() Drawing {
 	var result Drawing
 
 	for _, drawing := range game.Draws {
@@ -87,6 +87,10 @@ func getMinumumViableDrawing(game Game) Drawing {
 	}
 
 	return result
+}
+
+func (drawing Drawing) getDrawingPower() int {
+	return drawing.red * drawing.green * drawing.blue
 }
 
 func assembleGame(lineContent string) Game {
@@ -118,7 +122,7 @@ func part1(games []Game) {
 
 	sumViableGames := 0
 	for _, game := range games {
-		viableGame := isGameViable(game, totalRed, totalGreen, totalBlue)
+		viableGame := game.isGameViable(totalRed, totalGreen, totalBlue)
 		if viableGame {
 			sumViableGames += game.Number
 		}
@@ -130,9 +134,7 @@ func part1(games []Game) {
 func part2(games []Game) {
 	totalDrawingPower := 0
 	for _, game := range games {
-		minumViableDrawing := getMinumumViableDrawing(game)
-		drawingPower := minumViableDrawing.red * minumViableDrawing.green * minumViableDrawing.blue
-		totalDrawingPower += drawingPower
+		totalDrawingPower += game.getMinumumViableDrawing().getDrawingPower()
 	}
 
 	fmt.Println("Part 2 answer:", totalDrawingPower)
